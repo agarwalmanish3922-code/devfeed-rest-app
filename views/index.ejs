@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevFeed</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/posts">Dev<span>Feed</span></a>
+  <span class="nav-pill">Community</span>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>What's happening <span style="color:var(--accent)">today</span> <span class="count-badge"><%= posts.length %> posts</span></h1>
+    <p>Share thoughts, code wins, and lessons learned.</p>
+  </div>
+
+  <a class="fab" href="/posts/new">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+    New Post
+  </a>
+
+  <% if(posts.length === 0) { %>
+    <div class="empty">
+      <div class="empty-icon">💬</div>
+      <h3>No posts yet</h3>
+      <p>Be the first to share something.</p>
+    </div>
+  <% } %>
+
+  <% for(post of posts) { %>
+    <div class="post-card">
+      <div class="post-meta">
+        <div class="avatar"><%= post.username.slice(0,2).toUpperCase() %></div>
+        <span class="username">@<%= post.username %></span>
+      </div>
+      <p class="post-content"><%= post.content %></p>
+      <div class="post-actions">
+        <a class="btn btn-view" href="/posts/<%= post.id %>">View</a>
+        <a class="btn btn-ghost" href="/posts/<%= post.id %>/edit">Edit</a>
+        <form method="post" action="/posts/<%= post.id %>?_method=DELETE" style="margin:0">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+</body>
+</html>

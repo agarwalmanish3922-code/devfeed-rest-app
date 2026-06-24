@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= post.username %>'s Post · DevFeed</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/posts">Dev<span>Feed</span></a>
+  <span class="nav-pill">Community</span>
+</nav>
+
+<div class="container">
+  <a class="back-link" href="/posts">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+    </svg>
+    Back to feed
+  </a>
+
+  <div class="show-card">
+    <div class="post-meta">
+      <div class="avatar"><%= post.username.slice(0,2).toUpperCase() %></div>
+      <div>
+        <div class="username">@<%= post.username %></div>
+        <span class="post-id-badge"><%= post.id %></span>
+      </div>
+    </div>
+    <hr class="divider">
+    <p class="show-content"><%= post.content %></p>
+    <hr class="divider">
+    <div class="post-actions">
+      <a class="btn btn-ghost" href="/posts/<%= post.id %>/edit">Edit post</a>
+      <form method="post" action="/posts/<%= post.id %>?_method=DELETE" style="margin:0">
+        <button class="btn btn-danger" type="submit">Delete post</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
