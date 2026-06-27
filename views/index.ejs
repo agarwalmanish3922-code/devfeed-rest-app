@@ -7,50 +7,159 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
-<nav>
-  <a class="nav-brand" href="/posts">Dev<span>Feed</span></a>
-  <span class="nav-pill">Community</span>
-</nav>
-
-<div class="container">
-  <div class="page-header">
-    <h1>What's happening <span style="color:var(--accent)">today</span> <span class="count-badge"><%= posts.length %> posts</span></h1>
-    <p>Share thoughts, code wins, and lessons learned.</p>
-  </div>
-
-  <a class="fab" href="/posts/new">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-    </svg>
-    New Post
-  </a>
-
-  <% if(posts.length === 0) { %>
-    <div class="empty">
-      <div class="empty-icon">💬</div>
-      <h3>No posts yet</h3>
-      <p>Be the first to share something.</p>
-    </div>
-  <% } %>
-
-  <% for(post of posts) { %>
-    <div class="post-card">
-      <div class="post-meta">
-        <div class="avatar"><%= post.username.slice(0,2).toUpperCase() %></div>
-        <span class="username">@<%= post.username %></span>
-      </div>
-      <p class="post-content"><%= post.content %></p>
-      <div class="post-actions">
-        <a class="btn btn-view" href="/posts/<%= post.id %>">View</a>
-        <a class="btn btn-ghost" href="/posts/<%= post.id %>/edit">Edit</a>
-        <form method="post" action="/posts/<%= post.id %>?_method=DELETE" style="margin:0">
-          <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
-      </div>
-    </div>
-  <% } %>
+<div class="orb-container">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 </div>
 
+<nav>
+  <a class="nav-brand" href="/posts" data-text="DevFeed">Dev<span>Feed</span></a>
+  <div class="nav-right">
+    <div class="nav-status"><div class="nav-status-dot"></div>Live</div>
+    <span class="nav-pill">Community</span>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <aside class="sidebar-left">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="sidebar-link active" href="/posts">
+        <svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        Feed
+      </a>
+      <a class="sidebar-link" href="/posts/new">
+        <svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Post
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Stats</div>
+      <div class="stat-card" style="animation-delay:0.1s">
+        <span class="stat-label">Posts</span>
+        <span class="stat-value"><%= posts.length %></span>
+      </div>
+      <div class="stat-card" style="animation-delay:0.2s">
+        <span class="stat-label">Devs active</span>
+        <span class="stat-value"><%= Math.max(1, Math.floor(posts.length * 0.7)) %></span>
+      </div>
+      <div class="mini-chart">
+        <div class="bar" style="--h:45%"></div>
+        <div class="bar" style="--h:70%"></div>
+        <div class="bar" style="--h:35%"></div>
+        <div class="bar" style="--h:90%"></div>
+        <div class="bar" style="--h:60%"></div>
+        <div class="bar" style="--h:80%"></div>
+        <div class="bar" style="--h:50%"></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Topics</div>
+      <div class="tag-cloud">
+        <span class="tag">#webdev</span>
+        <span class="tag">#nodejs</span>
+        <span class="tag">#css</span>
+        <span class="tag">#react</span>
+        <span class="tag">#api</span>
+        <span class="tag">#ux</span>
+        <span class="tag">#git</span>
+        <span class="tag">#js</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-feed">
+    <div class="page-header">
+      <h1>What's happening <span style="background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">today</span> <span class="count-badge"><%= posts.length %> posts</span></h1>
+      <p>Share thoughts, code wins, and lessons learned.</p>
+    </div>
+
+    <a class="fab" href="/posts/new">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      New Post
+    </a>
+
+    <% if(posts.length === 0) { %>
+      <div class="empty">
+        <span class="empty-icon">💬</span>
+        <h3>No posts yet</h3>
+        <p>Be the first to share something.</p>
+      </div>
+    <% } %>
+
+    <% for(post of posts) { %>
+      <div class="post-card">
+        <div class="post-meta">
+          <div class="avatar"><%= post.username.slice(0,2).toUpperCase() %></div>
+          <span class="username">@<%= post.username %></span>
+        </div>
+        <p class="post-content"><%= post.content %></p>
+        <div class="post-actions">
+          <a class="btn btn-view" href="/posts/<%= post.id %>">View</a>
+          <a class="btn btn-ghost" href="/posts/<%= post.id %>/edit">Edit</a>
+          <form method="post" action="/posts/<%= post.id %>?_method=DELETE" style="margin:0">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+  </main>
+
+  <aside class="sidebar-right">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Live activity</div>
+      <div class="activity-item" style="animation-delay:0.1s">
+        <div class="activity-dot purple"></div>
+        <div><div class="activity-text">@dev_manish shared a new tip</div><div class="activity-time">just now</div></div>
+      </div>
+      <div class="activity-item" style="animation-delay:0.2s">
+        <div class="activity-dot cyan"></div>
+        <div><div class="activity-text">@code_ninja posted a CSS trick</div><div class="activity-time">2m ago</div></div>
+      </div>
+      <div class="activity-item" style="animation-delay:0.3s">
+        <div class="activity-dot pink"></div>
+        <div><div class="activity-text">@reactdevs updated their post</div><div class="activity-time">5m ago</div></div>
+      </div>
+      <div class="activity-item" style="animation-delay:0.4s">
+        <div class="activity-dot purple"></div>
+        <div><div class="activity-text">@node_wizard shared a snippet</div><div class="activity-time">12m ago</div></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Trending</div>
+      <div class="trending-item"><span class="trending-name">#nodejs</span><span class="trending-count">24 posts</span></div>
+      <div class="trending-item"><span class="trending-name">#css</span><span class="trending-count">18 posts</span></div>
+      <div class="trending-item"><span class="trending-name">#react</span><span class="trending-count">15 posts</span></div>
+      <div class="trending-item"><span class="trending-name">#webdev</span><span class="trending-count">11 posts</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">System</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="spin-ring"></div>
+        <span style="font-size:0.72rem;color:var(--text-muted)">Feed syncing...</span>
+      </div>
+      <div style="font-size:0.68rem;color:var(--text-muted);line-height:2">
+        <div>🟢 Server online</div>
+        <div>⚡ Express v5</div>
+        <div>🔧 REST API active</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+const colors = ['#8B5CF6','#06B6D4','#EC4899'];
+for(let i=0;i<20;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`left:${Math.random()*100}vw;bottom:-10px;background:${colors[i%3]};--drift:${(Math.random()-0.5)*140}px;--pdur:${7+Math.random()*9}s;--pdelay:${-Math.random()*12}s;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;opacity:${0.4+Math.random()*0.5}`;
+  document.body.appendChild(p);
+}
+</script>
 </body>
 </html>

@@ -7,12 +7,18 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
+<div class="orb-container">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
 <nav>
-  <a class="nav-brand" href="/posts">Dev<span>Feed</span></a>
-  <span class="nav-pill">Community</span>
+  <a class="nav-brand" href="/posts" data-text="DevFeed">Dev<span>Feed</span></a>
+  <div class="nav-right">
+    <div class="nav-status"><div class="nav-status-dot"></div>Live</div>
+    <span class="nav-pill">Community</span>
+  </div>
 </nav>
-
 <div class="container">
   <a class="back-link" href="/posts">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -20,7 +26,6 @@
     </svg>
     Back to feed
   </a>
-
   <div class="show-card">
     <div class="post-meta">
       <div class="avatar"><%= post.username.slice(0,2).toUpperCase() %></div>
@@ -40,6 +45,9 @@
     </div>
   </div>
 </div>
-
+<script>
+const colors=['#8B5CF6','#06B6D4','#EC4899'];
+for(let i=0;i<14;i++){const p=document.createElement('div');p.className='particle';p.style.cssText=`left:${Math.random()*100}vw;bottom:-10px;background:${colors[i%3]};--drift:${(Math.random()-0.5)*120}px;--pdur:${7+Math.random()*9}s;--pdelay:${-Math.random()*10}s;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;opacity:${0.35+Math.random()*0.45}`;document.body.appendChild(p);}
+</script>
 </body>
 </html>
